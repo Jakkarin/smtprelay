@@ -339,6 +339,7 @@ func SendMail(r *Remote, from string, to []string, msg []byte) error {
 		config := &tls.Config{
 			ServerName:         r.Hostname,
 			InsecureSkipVerify: r.SkipVerify,
+			MinVersion:         tls.VersionTLS10,
 		}
 		conn, err := tls.Dial("tcp", r.Addr, config)
 		if err != nil {
@@ -365,6 +366,7 @@ func SendMail(r *Remote, from string, to []string, msg []byte) error {
 			config := &tls.Config{
 				ServerName:         c.serverName,
 				InsecureSkipVerify: r.SkipVerify,
+				MinVersion:         tls.VersionTLS10,
 			}
 			if testHookStartTLS != nil {
 				testHookStartTLS(config)
